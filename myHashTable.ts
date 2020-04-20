@@ -12,53 +12,65 @@
  * ! 단점 : 여러 키에 해당하는 주소가 동일할 경우 충돌을 해결하기 위한 별도 구조가 필요
  * * 주요 용도 : 검색, 캐쉬 구현
  * todo : 충동 해결 알고리즘 (open hashing: chaining, close hashing: )
- * todo : chaining 은 연결 리스트로 구현 -> 키 값과 같이 저장시킴
+ * todo : chaining 은 리스트로 구현 -> 키 값과 같이 저장시킴
+ * todo : linear probing 은 해쉬테이블 안에서 구현 -> 빈 위치에 저장
  */
 
-const hashSize = 8;
-const hashTable = new Array(8);
+// chaining 기법
+// const hashSize = 8;
+// const hashTable = new Array(8);
 
-function hashFunction(key) {
-  return key % 8;
-}
-function getKey(data: string) {
-  let key: number = 0;
-  for (let i = 0; i < data.length; i++) {
-    key += data.charCodeAt(i);
-  }
-  return key;
-}
+// function hashFunction(key) {
+//   return key % 8;
+// }
+// function getKey(data: string) {
+//   let key: number = 0;
+//   for (let i = 0; i < data.length; i++) {
+//     key += data.charCodeAt(i);
+//   }
+//   return key;
+// }
 
-function saveValue(data: string, value) {
-  let indexKey = getKey(data);
-  let hashAddress = hashFunction(indexKey);
-  if (!hashTable[hashAddress]) {
-    hashTable[hashAddress] = new Array();
-    hashTable[hashAddress].push(`${indexKey}:${value}`);
-  } else {
-    hashTable[hashAddress].push(`${indexKey}:${value}`);
-  }
-}
+// function saveValue(data: string, value) {
+//   let indexKey = getKey(data);
+//   let hashAddress = hashFunction(indexKey);
+//   if (!hashTable[hashAddress]) {
+//     hashTable[hashAddress] = new Array();
+//     hashTable[hashAddress].push(`${indexKey}:${value}`);
+//   } else {
+//     hashTable[hashAddress].push(`${indexKey}:${value}`);
+//   }
+// }
 
-function readValue(data: string) {
-  let indexKey = getKey(data);
-  let hashAddress = hashFunction(indexKey);
-  let result;
-  if (hashTable[hashAddress]) {
-    hashTable[hashAddress].forEach((e, i) => {
-      let array = e.split(":");
-      if (Number(array[0]) == indexKey) result = array[1];
-    });
-  } else {
-    result = "not exists";
-  }
-  return result;
-}
+// function readValue(data: string) {
+//   let indexKey = getKey(data);
+//   let hashAddress = hashFunction(indexKey);
+//   let result;
+//   if (hashTable[hashAddress]) {
+//     hashTable[hashAddress].forEach((e, i) => {
+//       let array = e.split(":");
+//       if (Number(array[0]) == indexKey) result = array[1];
+//     });
+//   } else {
+//     result = "not exists";
+//   }
+//   return result;
+// }
 
-saveValue("태호", "01092121653");
-saveValue("길동", "01092121654");
-saveValue("확정", "01011112222");
-saveValue("태수", "01044442222");
-const result = readValue("태수");
-console.log(result);
-console.log(hashTable);
+// saveValue("태호", "01092121653");
+// saveValue("길동", "01092121654");
+// saveValue("확정", "01011112222");
+// saveValue("태수", "01044442222");
+// const result = readValue("태수");
+// console.log(result);
+// console.log(hashTable);
+
+// linear probing 기법
+
+// saveValue("태호", "01092121653");
+// saveValue("길동", "01092121654");
+// saveValue("확정", "01011112222");
+// saveValue("태수", "01044442222");
+// const result = readValue("태수");
+// console.log(result);
+// console.log(hashTable);
