@@ -47,6 +47,7 @@ function readValue(data: string) {
     hashTable[hashAddress].forEach((e, i) => {
       let result = e.split(":");
       console.log(result);
+      console.log(indexKey);
 
       if (parseInt(result[0]) == indexKey) return result[1];
     });
