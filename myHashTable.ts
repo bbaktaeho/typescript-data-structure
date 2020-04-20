@@ -26,7 +26,7 @@ function getKey(data: string) {
   for (let i = 0; i < data.length; i++) {
     key += data.charCodeAt(i);
   }
-  return 4;
+  return key;
 }
 
 function saveValue(data: string, value) {
@@ -43,23 +43,22 @@ function saveValue(data: string, value) {
 function readValue(data: string) {
   let indexKey = getKey(data);
   let hashAddress = hashFunction(indexKey);
+  let result;
   if (hashTable[hashAddress]) {
     hashTable[hashAddress].forEach((e, i) => {
-      let result = e.split(":");
-      console.log(result);
-      console.log(indexKey);
-
-      if (parseInt(result[0]) == indexKey) return result[1];
+      let array = e.split(":");
+      if (Number(array[0]) == indexKey) result = array[1];
     });
-    return "not exists";
   } else {
-    return "not exists";
+    result = "not exists";
   }
+  return result;
 }
 
 saveValue("태호", "01092121653");
 saveValue("길동", "01092121654");
-const result = readValue("길동");
+saveValue("확정", "01011112222");
+saveValue("태수", "01044442222");
+const result = readValue("태수");
 console.log(result);
-console.log(hashTable.length);
 console.log(hashTable);
