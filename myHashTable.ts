@@ -11,28 +11,54 @@
  * ! 단점 : 일반적으로 저장공간이 좀더 필요함
  * ! 단점 : 여러 키에 해당하는 주소가 동일할 경우 충돌을 해결하기 위한 별도 구조가 필요
  * * 주요 용도 : 검색, 캐쉬 구현
- * todo : 충동 해결 알고리즘
+ * todo : 충동 해결 알고리즘 (open hashing: chaining, close hashing: )
+ * todo : chaining 은 연결 리스트로 구현 -> 키 값과 같이 저장시킴
  */
 
 const hashSize = 8;
-const hashTable = new Array<string>(8);
+const hashTable = new Array(8);
 
 function hashFunction(key) {
   return key % 8;
 }
+function getKey(data: string) {
+  let key: number = 0;
+  for (let i = 0; i < data.length; i++) {
+    key += data.charCodeAt(i);
+  }
+  return 4;
+}
 
 function saveValue(data: string, value) {
-  let hashAddress = hashFunction(data.charCodeAt(0));
-  hashTable[hashAddress] = value;
+  let indexKey = getKey(data);
+  let hashAddress = hashFunction(indexKey);
+  if (!hashTable[hashAddress]) {
+    hashTable[hashAddress] = new Array();
+    hashTable[hashAddress].push(`${indexKey}:${value}`);
+  } else {
+    hashTable[hashAddress].push(`${indexKey}:${value}`);
+  }
 }
 
 function readValue(data: string) {
-  let hashAddress = hashFunction(data.charCodeAt(0));
-  return hashTable[hashAddress];
+  let indexKey = getKey(data);
+  let hashAddress = hashFunction(indexKey);
+  if (hashTable[hashAddress]) {
+    hashTable[hashAddress].forEach((e, i) => {
+      let result = e.split(":");
+      console.log(result);
+
+      if (parseInt(result[0]) == indexKey) return result[1];
+    });
+    return "not exists";
+  } else {
+    return "not exists";
+  }
 }
 
 saveValue("태호", "01092121653");
-const result = readValue("태호");
+saveValue("길동", "01092121654");
+const result = readValue("길동");
 console.log(result);
 console.log(hashTable.length);
 console.log(hashTable);
