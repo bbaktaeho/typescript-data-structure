@@ -55,16 +55,38 @@ class BST {
   }
 
   public remove(value) {
-    let current = this.head;
+    let current: BSTNode = this.head;
     let parent: BSTNode = this.head;
     while (current) {
       if (current.value == value) {
         // 1. 삭제할 노드가 자식이 없는 경우
-        if (!current.left && !current.right) current = null;
-        // 2. 삭제할 노드가 자식이 하나인 경우
-        else if (current.left && !current.right) current = current.left;
-        else if (!current.left && current.right) current = current.right;
-        // 3. 삭제할 노드가 자식이 많은 경우
+        if (!current.left && !current.right) {
+          if (parent.value > value) parent.left = null;
+          else parent.right = null;
+          current = undefined;
+        }
+        // 2. 삭제할 노드가 자식이 한쪽만 있는 경우
+        else if (current.left && !current.right) {
+          if (parent.value > value) parent.left = current.left;
+          else parent.right = current.left;
+          current = undefined;
+        } else if (!current.left && current.right) {
+          if (parent.value > value) parent.left = current.right;
+          else parent.right = current.right;
+          current = undefined;
+        }
+        // 3. 삭제할 노드가 자식 노드를 두 개 가지고 있는 경우
+        else {
+          if (parent.value > value) {
+          } else {
+          }
+          //   let minParent: BSTNode = current;
+          //   let minCurrent: BSTNode = current.right;
+          //   while (minCurrent.left) {
+          //     minParent = minCurrent;
+          //     minCurrent = minCurrent.left;
+          //   }
+        }
       } else if (current.value > value) {
         parent = current;
         current = current.left;
