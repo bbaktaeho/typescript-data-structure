@@ -21,16 +21,19 @@ class BSTNode {
 }
 
 class BST {
-  private head: BSTNode;
-  constructor(head) {
-    this.head = head;
+  private root: BSTNode;
+  constructor(root) {
+    this.root = root;
   }
 
   public desc() {
-    console.log(JSON.stringify(this.head));
+    fs.writeFileSync(
+      "./output/myBinarySearchTree.json",
+      JSON.stringify(this.root)
+    );
   }
   public insert(value) {
-    let current = this.head;
+    let current = this.root;
     while (true) {
       if (value < current.value) {
         if (current.left) current = current.left;
@@ -49,7 +52,7 @@ class BST {
   }
 
   public search(value): boolean {
-    let current = this.head;
+    let current = this.root;
     while (current) {
       if (current.value == value) return true;
       else if (current.value > value) current = current.left;
@@ -59,34 +62,50 @@ class BST {
   }
 
   public remove(value): any {
-    let current: BSTNode = this.head;
-    let parent: BSTNode = this.head;
+    let current: BSTNode = this.root;
+    let parent: BSTNode = this.root;
     let changeParent: BSTNode;
     let change: BSTNode;
     while (current) {
       if (current.value == value) {
         // 1. 삭제할 노드가 자식이 없는 경우
         if (!current.left && !current.right) {
-          if (parent.value > value) parent.left = null;
+          if (this.root.value == current.value) this.root = null;
+          else if (parent.value > value) parent.left = null;
           else parent.right = null;
           current = undefined;
         }
         // 2. 삭제할 노드가 자식이 한쪽만 있는 경우
         // 2-1. 왼쪽 자식만 있는 경우
         else if (current.left && !current.right) {
-          if (parent.value > value) parent.left = current.left;
+          if (this.root.value == current.value) this.root = this.root.left;
+          else if (parent.value > value) parent.left = current.left;
           else parent.right = current.left;
           current = undefined;
         }
         // 2-2. 오른쪽 자식만 있는 경우
         else if (!current.left && current.right) {
-          if (parent.value > value) parent.left = current.right;
+          if (this.root.value == current.value) this.root = this.root.right;
+          else if (parent.value > value) parent.left = current.right;
           else parent.right = current.right;
           current = undefined;
         }
         // 3. 삭제할 노드가 자식 노드를 두 개 가지고 있는 경우
         else {
-          if (parent.value > value) {
+          if (this.root.value == current.value) {
+            changeParent = current.right;
+            change = current.right;
+            while (change.left) {
+              changeParent = change;
+              change = change.left;
+            }
+            changeParent.left = null;
+            if (change.right) changeParent.left = change.right;
+            change.left = current.left;
+            change.right = current.right;
+            this.root = change;
+            current = undefined;
+          } else if (parent.value > value) {
             changeParent = current.right;
             change = current.right;
             while (change.left) {
@@ -127,26 +146,25 @@ class BST {
 
 const root = new BSTNode(15);
 const tree = new BST(root);
-tree.insert(17);
-tree.insert(6);
-tree.insert(8);
-tree.insert(16);
-tree.insert(22);
+// tree.insert(17);
+tree.insert(11);
 tree.insert(5);
-tree.insert(9);
-tree.insert(14);
-tree.insert(20);
-tree.insert(29);
-tree.insert(27);
-tree.remove(14);
-tree.remove(14);
-tree.remove(14);
-tree.remove(14);
-tree.remove(14);
-tree.remove(14);
-tree.remove(14);
-tree.remove(14);
-tree.remove(14);
-tree.remove(14);
+tree.insert(12);
+tree.insert(19);
+tree.insert(17);
+
+tree.remove(15);
+
+// tree.insert(17);
+// tree.insert(6);
+// tree.insert(8);
+// tree.insert(16);
+// tree.insert(22);
+// tree.insert(5);
+// tree.insert(9);
+// tree.insert(14);
+// tree.insert(20);
+// tree.insert(29);
+// tree.insert(27);
 tree.desc();
 console.log(tree.search(14));
