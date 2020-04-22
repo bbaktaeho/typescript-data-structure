@@ -2,11 +2,14 @@ import * as fs from "fs";
 /**
  * * BST : 이진 트리에 추가적인 조건이 있는 트리
  * * 데이터 검색에 사용
- * * 탐색 속도를 개선할 수 있음
+ * * 장점 : 탐색 속도를 개선할 수 있음
+ * ! 단점 :
  * todo: 노드 삭제 시 (1. leaf 노드 삭제, 2. 자식 노드가 하나인 노드 삭제, 3. 자식 노드가 두 개인 노드 삭제)
  * todo: 1. 쉬움
  * todo: 2. 쉬움
  * todo: 3. 삭제할 노드의 오른 쪽 자식 중 가장 작은 값을 위로 올린다. 만약 가장 작은 값의 노드가 오른쪽 자식이 있다면 이전 레벨의 노드의 왼쪽 자식으로 이어준다
+ * * 일반적인 경우 : O(logN)
+ * * 최악의 경우 : O(N)
  */
 
 class BSTNode {
@@ -144,16 +147,14 @@ class BST {
   }
 }
 
+function myRandom(min, max) {
+  var ranNum = Math.floor(Math.random() * (max - min + 1)) + min;
+  return ranNum;
+}
+
 const root = new BSTNode(15);
 const tree = new BST(root);
-// tree.insert(17);
-tree.insert(11);
-tree.insert(5);
-tree.insert(12);
-tree.insert(19);
-tree.insert(17);
-
-tree.remove(15);
+for (let i = 0; i < 20; i++) tree.insert(myRandom(0, 100));
 
 // tree.insert(17);
 // tree.insert(6);
@@ -167,4 +168,7 @@ tree.remove(15);
 // tree.insert(29);
 // tree.insert(27);
 tree.desc();
-console.log(tree.search(14));
+if (tree.search(26)) {
+  tree.remove(26);
+  // tree.desc(); // 26이 없는 트리가 출력
+} else console.log(`26은 없음`);

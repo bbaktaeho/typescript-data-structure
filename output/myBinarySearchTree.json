@@ -1,9 +1,61 @@
 {
-  "value": 17,
+  "value": 15,
   "left": {
     "value": 11,
-    "left": { "value": 5, "left": null, "right": null },
-    "right": { "value": 12, "left": null, "right": null }
+    "left": {
+      "value": 4,
+      "left": null,
+      "right": { "value": 7, "left": null, "right": null }
+    },
+    "right": null
   },
-  "right": { "value": 19, "left": null, "right": null }
+  "right": {
+    "value": 21,
+    "left": {
+      "value": 17,
+      "left": null,
+      "right": { "value": 19, "left": null, "right": null }
+    },
+    "right": {
+      "value": 97,
+      "left": {
+        "value": 23,
+        "left": null,
+        "right": {
+          "value": 26,
+          "left": null,
+          "right": {
+            "value": 34,
+            "left": {
+              "value": 30,
+              "left": null,
+              "right": { "value": 31, "left": null, "right": null }
+            },
+            "right": {
+              "value": 80,
+              "left": {
+                "value": 34,
+                "left": null,
+                "right": {
+                  "value": 41,
+                  "left": { "value": 35, "left": null, "right": null },
+                  "right": {
+                    "value": 62,
+                    "left": { "value": 54, "left": null, "right": null },
+                    "right": null
+                  }
+                }
+              },
+              "right": {
+                "value": 86,
+                "left": null,
+                "right": { "value": 86, "left": null, "right": null }
+              }
+            }
+          }
+        }
+      },
+      "right": null
+    }
+  }
 }
