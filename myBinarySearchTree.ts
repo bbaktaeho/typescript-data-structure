@@ -57,6 +57,8 @@ class BST {
   public remove(value) {
     let current: BSTNode = this.head;
     let parent: BSTNode = this.head;
+    let changeParent: BSTNode;
+    let change: BSTNode;
     while (current) {
       if (current.value == value) {
         // 1. 삭제할 노드가 자식이 없는 경우
@@ -66,11 +68,14 @@ class BST {
           current = undefined;
         }
         // 2. 삭제할 노드가 자식이 한쪽만 있는 경우
+        // 2-1. 왼쪽 자식만 있는 경우
         else if (current.left && !current.right) {
           if (parent.value > value) parent.left = current.left;
           else parent.right = current.left;
           current = undefined;
-        } else if (!current.left && current.right) {
+        }
+        // 2-2. 오른쪽 자식만 있는 경우
+        else if (!current.left && current.right) {
           if (parent.value > value) parent.left = current.right;
           else parent.right = current.right;
           current = undefined;
@@ -78,14 +83,32 @@ class BST {
         // 3. 삭제할 노드가 자식 노드를 두 개 가지고 있는 경우
         else {
           if (parent.value > value) {
+            changeParent = current.right;
+            change = current.right;
+            while (change.left) {
+              changeParent = change;
+              change = change.left;
+            }
+            changeParent.left = null;
+            if (change.right) changeParent.left = change.right;
+            change.left = current.left;
+            change.right = current.right;
+            parent.left = change;
+            current = undefined;
           } else {
+            changeParent = current.right;
+            change = current.right;
+            while (change.left) {
+              changeParent = change;
+              change = change.left;
+            }
+            changeParent.left = null;
+            if (change.right) changeParent.left = change.right;
+            change.left = current.left;
+            change.right = current.right;
+            parent.right = change;
+            current = undefined;
           }
-          //   let minParent: BSTNode = current;
-          //   let minCurrent: BSTNode = current.right;
-          //   while (minCurrent.left) {
-          //     minParent = minCurrent;
-          //     minCurrent = minCurrent.left;
-          //   }
         }
       } else if (current.value > value) {
         parent = current;
