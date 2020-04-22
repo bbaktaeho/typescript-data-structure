@@ -1,3 +1,4 @@
+import * as fs from "fs";
 /**
  * * BST : 이진 트리에 추가적인 조건이 있는 트리
  * * 데이터 검색에 사용
@@ -9,10 +10,10 @@
  */
 
 class BSTNode {
-  public value;
+  public value: any;
   public left: BSTNode;
   public right: BSTNode;
-  constructor(value) {
+  constructor(value: any) {
     this.value = value;
     this.left = null;
     this.right = null;
@@ -25,6 +26,9 @@ class BST {
     this.head = head;
   }
 
+  public desc() {
+    console.log(JSON.stringify(this.head));
+  }
   public insert(value) {
     let current = this.head;
     while (true) {
@@ -54,7 +58,7 @@ class BST {
     return false;
   }
 
-  public remove(value) {
+  public remove(value): any {
     let current: BSTNode = this.head;
     let parent: BSTNode = this.head;
     let changeParent: BSTNode;
@@ -118,13 +122,31 @@ class BST {
         current = current.right;
       }
     }
-    return false;
   }
 }
 
-const root = new BSTNode(1);
+const root = new BSTNode(15);
 const tree = new BST(root);
-tree.insert(2);
-tree.insert(0);
-tree.insert(3);
-console.log(tree.search(4));
+tree.insert(17);
+tree.insert(6);
+tree.insert(8);
+tree.insert(16);
+tree.insert(22);
+tree.insert(5);
+tree.insert(9);
+tree.insert(14);
+tree.insert(20);
+tree.insert(29);
+tree.insert(27);
+tree.remove(14);
+tree.remove(14);
+tree.remove(14);
+tree.remove(14);
+tree.remove(14);
+tree.remove(14);
+tree.remove(14);
+tree.remove(14);
+tree.remove(14);
+tree.remove(14);
+tree.desc();
+console.log(tree.search(14));
